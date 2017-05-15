@@ -38,6 +38,7 @@ public class MoteurPhysique {
     //Sensors
     private SensorManager mManager = null;
     private Sensor mAccelerometre = null;
+    private Sensor mLight = null;
 
 
 
@@ -46,6 +47,27 @@ public class MoteurPhysique {
 
         @Override
         public void onSensorChanged(SensorEvent pEvent) {
+
+            if (pEvent.sensor.getType() == Sensor.TYPE_LIGHT) {
+                float lux = pEvent.values[0];
+
+                if (lux > 50 && lux < 100) {
+                    LabyrintheView.color = mActivity.getResources().getColor(R.color.medium);
+                    LabyrintheView.colorTrou = mActivity.getResources().getColor(R.color.black_medium);
+                } else if (lux > 100) {
+                    LabyrintheView.color = mActivity.getResources().getColor(R.color.light);
+                    LabyrintheView.colorTrou = Color.BLACK;
+                } else if (lux < 50 && lux > 0) {
+                    LabyrintheView.color = mActivity.getResources().getColor(R.color.darkness);
+                    LabyrintheView.colorTrou = mActivity.getResources().getColor(R.color.gray);
+                } else {
+                    LabyrintheView.color = mActivity.getResources().getColor(R.color.dark);
+                    LabyrintheView.colorTrou = mActivity.getResources().getColor(R.color.black_light);
+                }
+
+
+            }
+            if (pEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 
                 float x = pEvent.values[0];
                 float y = pEvent.values[1];
@@ -79,6 +101,8 @@ public class MoteurPhysique {
                 }
 
 
+            }//End if
+
 
 
 
@@ -94,6 +118,7 @@ public class MoteurPhysique {
         mActivity = pView;
         mManager = (SensorManager) mActivity.getBaseContext().getSystemService(Service.SENSOR_SERVICE);
         mAccelerometre = mManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mLight = mManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
 
 
@@ -106,12 +131,14 @@ public class MoteurPhysique {
     // Arrête le capteur
     public void stop() {
         mManager.unregisterListener(mSensorEventListener, mAccelerometre);
+        mManager.unregisterListener(mSensorEventListener, mLight);
 
     }
 
     // Redémarre le capteur
     public void resume() {
         mManager.registerListener(mSensorEventListener, mAccelerometre, SensorManager.SENSOR_DELAY_GAME);
+        mManager.registerListener(mSensorEventListener, mLight , SensorManager.SENSOR_DELAY_GAME);
     }
 
     // Construit le labyrinthe
