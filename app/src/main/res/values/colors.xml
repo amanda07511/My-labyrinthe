@@ -10,4 +10,12 @@
     <color name="black_light">#393E46</color>
     <color name="black_medium">#222831</color>
     <color name="gray">#837D7D</color>
+    <color name="color1">#FF9A00</color>
+    <color name="color2">#FF165D</color>
+    <color name="color3">#C6DA20</color>
+    <color name="color4">#DA1212</color>
+    <color name="color5">#AEA1EA</color>
+    <color name="color6">#F1EA65</color>
+    <color name="color7">#403121</color>
+    <color name="color8">#347A2A</color>
 </resources>

@@ -39,7 +39,7 @@ public class MoteurPhysique {
     private SensorManager mManager = null;
     private Sensor mAccelerometre = null;
     private Sensor mLight = null;
-
+    private Sensor mMagnetometer = null;
 
 
 
@@ -103,7 +103,31 @@ public class MoteurPhysique {
 
             }//End if
 
+            if (pEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+                float x = pEvent.values[0];
+                float y = pEvent.values[1];
+                float z = pEvent.values[2];
+                if (x > 0 && y > 0 && z > 0) {
+                    mBoule.setCouleur(mActivity.getResources().getColor(R.color.color1));
+                } else if (x > 0 && y > 0 && z < 0) {
+                    mBoule.setCouleur(mActivity.getResources().getColor(R.color.color2));
+                } else if (x > 0 && y < 0 && z > 0) {
+                    mBoule.setCouleur(mActivity.getResources().getColor(R.color.color3));
+                } else if (x > 0 && y < 0 && z < 0) {
+                    mBoule.setCouleur(mActivity.getResources().getColor(R.color.color4));
+                } else if (x < 0 && y > 0 && z > 0) {
+                    mBoule.setCouleur(mActivity.getResources().getColor(R.color.color5));
+                } else if (x < 0 && y > 0 && z < 0) {
+                    mBoule.setCouleur(mActivity.getResources().getColor(R.color.color6));
+                } else if (x < 0 && y < 0 && z > 0) {
+                    mBoule.setCouleur(mActivity.getResources().getColor(R.color.color7));
+                } else if (x < 0 && y < 0 && z < 0) {
+                    mBoule.setCouleur(mActivity.getResources().getColor(R.color.color8));
+                } else {
+                    mBoule.setCouleur(Color.GREEN);
+                }
 
+            }
 
 
         }//onSensorChanged
@@ -119,6 +143,7 @@ public class MoteurPhysique {
         mManager = (SensorManager) mActivity.getBaseContext().getSystemService(Service.SENSOR_SERVICE);
         mAccelerometre = mManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mLight = mManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        mMagnetometer = mManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
 
 
@@ -132,6 +157,7 @@ public class MoteurPhysique {
     public void stop() {
         mManager.unregisterListener(mSensorEventListener, mAccelerometre);
         mManager.unregisterListener(mSensorEventListener, mLight);
+        mManager.unregisterListener(mSensorEventListener, mMagnetometer);
 
     }
 
@@ -139,6 +165,7 @@ public class MoteurPhysique {
     public void resume() {
         mManager.registerListener(mSensorEventListener, mAccelerometre, SensorManager.SENSOR_DELAY_GAME);
         mManager.registerListener(mSensorEventListener, mLight , SensorManager.SENSOR_DELAY_GAME);
+        mManager.registerListener(mSensorEventListener, mMagnetometer, SensorManager.SENSOR_DELAY_GAME);
     }
 
     // Construit le labyrinthe
