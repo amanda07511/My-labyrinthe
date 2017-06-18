@@ -1,5 +1,7 @@
 package iut.my_labyrinthe.models;
 
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -7,15 +9,9 @@ import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.util.List;
-
-/**
- * Created by amanda on 10/04/2017.
- */
 
 public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callback {
-    public  static int color = Color.CYAN;
-    public  static int colorTrou = Color.BLACK;
+
 
     Boule mBoule;
     public Boule getBoule() {
@@ -25,6 +21,10 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
     public void setBoule(Boule pBoule) {
         this.mBoule = pBoule;
     }
+
+    // Couleur de l'ecran
+    public static int mCouleur = Color.CYAN;
+    public static int mCouleurTrou = Color.BLACK;
 
     SurfaceHolder mSurfaceHolder;
     DrawingThread mThread;
@@ -40,8 +40,9 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
 
     Paint mPaint;
 
-    public LabyrintheView(Context context) {
-        super(context);
+    public LabyrintheView(Context pContext) {
+        super(pContext);
+
 
         mSurfaceHolder = getHolder();
         mSurfaceHolder.addCallback(this);
@@ -54,10 +55,47 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder surfaceHolder) {
+    protected void onDraw(Canvas pCanvas) {
+        if (pCanvas != null) {
+
+            // Dessiner le fond de l'écran en premier
+            pCanvas.drawColor(mCouleur);
+            if (mBlocks != null) {
+                // Dessiner tous les blocs du labyrinthe
+                for (Bloc b : mBlocks) {
+                    switch (b.getType()) {
+                        case DEPART:
+                            mPaint.setColor(Color.WHITE);
+                            break;
+                        case ARRIVEE:
+                            mPaint.setColor(Color.RED);
+                            break;
+                        case TROU:
+                            mPaint.setColor(mCouleurTrou);
+                            break;
+                    }
+                    pCanvas.drawRect(b.getRectangle(), mPaint);
+                }
+            }
+
+            // Dessiner la boule
+            if (mBoule != null) {
+                mPaint.setColor(mBoule.getCouleur());
+                pCanvas.drawCircle(mBoule.getX(), mBoule.getY(), Boule.RAYON, mPaint);
+            }
+        }
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder pHolder, int pFormat, int pWidth, int pHeight) {
+        //
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder pHolder) {
         mThread.keepDrawing = true;
         mThread.start();
-        // Quand on crée la Boule, on lui indique les coordonnées de l'écran
+        // Quand on crée la boule, on lui indique les coordonnées de l'écran
         if (mBoule != null) {
             this.mBoule.setHeight(getHeight());
             this.mBoule.setWidth(getWidth());
@@ -65,12 +103,7 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+    public void surfaceDestroyed(SurfaceHolder pHolder) {
         mThread.keepDrawing = false;
         boolean retry = true;
         while (retry) {
@@ -79,37 +112,8 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
                 retry = false;
             } catch (InterruptedException e) { }
         }
+
     }
-
-    @Override
-    protected void onDraw(Canvas pCanvas) {
-        // Dessiner le fond de l'écran en premier
-        pCanvas.drawColor(color);
-        if (mBlocks != null) {
-            // Dessiner tous les blocs du labyrinthe
-            for (Bloc b : mBlocks) {
-                switch (b.getType()) {
-                    case DEPART:
-                        mPaint.setColor(Color.WHITE);
-                        break;
-                    case ARRIVEE:
-                        mPaint.setColor(Color.RED);
-                        break;
-                    case TROU:
-                        mPaint.setColor(colorTrou);
-                        break;
-                }
-                pCanvas.drawRect(b.getRectangle(), mPaint);
-            }
-        }
-
-        // Dessiner la Boule
-        if (mBoule != null) {
-            mPaint.setColor(mBoule.getCouleur());
-            pCanvas.drawCircle(mBoule.getX(), mBoule.getY(), Boule.RAYON, mPaint);
-        }
-    }
-
 
     private class DrawingThread extends Thread {
         boolean keepDrawing = true;
@@ -129,6 +133,7 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
                     if (canvas != null) {
                         mSurfaceHolder.unlockCanvasAndPost(canvas);
                     }
+
                 }
 
                 // Pour dessiner à 50 fps
@@ -138,7 +143,4 @@ public class LabyrintheView extends SurfaceView implements SurfaceHolder.Callbac
             }
         }
     }
-
-
-
 }

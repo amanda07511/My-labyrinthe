@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import iut.my_labyrinthe.models.Boule;
 import iut.my_labyrinthe.models.LabyrintheView;
 import iut.my_labyrinthe.models.Bloc;
 import iut.my_labyrinthe.models.MoteurPhysique;
+import iut.my_labyrinthe.models.Sounds;
 
 /**
  * Created by amanda on 10/04/2017.
@@ -28,9 +30,17 @@ public class LabyrintheActivity extends Activity {
     // Le moteur physique du jeu
     private MoteurPhysique mEngine = null;
 
+    public Sounds theme;
+
+    String fileName;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        fileName = intent.getStringExtra("file");
 
         mView = new LabyrintheView(this);
         setContentView(mView);
@@ -41,20 +51,33 @@ public class LabyrintheActivity extends Activity {
         mView.setBoule(b);
         mEngine.setBoule(b);
 
-        List<Bloc> mList = mEngine.buildLabyrinthe();
+        List<Bloc> mList = mEngine.buildLabyrinthe(fileName);
         mView.setBlocks(mList);
+
+        theme = new Sounds(this);
+        theme.play_mp(this);
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mEngine.resume();
+        theme.play_mp(this);
     }
 
     @Override
     protected void onPause() {
         super.onStop();
         mEngine.stop();
+        if (theme != null) {
+            theme.pause_mp();
+        }
+    }
+
+    public void explosion() {
+        theme.play_sp();
     }
 
     @Override
@@ -76,6 +99,7 @@ public class LabyrintheActivity extends Activity {
                 break;
 
             case DEFEAT_DIALOG:
+
                 builder.setCancelable(false)
                         .setMessage("La Terre a été détruite à cause de vos erreurs.")
                         .setTitle("Bah bravo !")
@@ -84,6 +108,16 @@ public class LabyrintheActivity extends Activity {
                             public void onClick(DialogInterface dialog, int which) {
                                 mEngine.reset();
                                 mEngine.resume();
+                            }
+                        })
+                        .setNegativeButton("Returner a l'accueil", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mEngine.stop();
+                                theme.stop_mp();
+                                Intent i = new Intent(LabyrintheActivity.this, MainActivity.class);
+                                startActivity(i);
+                                finish();
                             }
                         });
         }
@@ -95,4 +129,5 @@ public class LabyrintheActivity extends Activity {
         // A chaque fois qu'une boîte de dialogue est lancée, on arrête le moteur physique
         mEngine.stop();
     }
+
 }

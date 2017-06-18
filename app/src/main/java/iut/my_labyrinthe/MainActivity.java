@@ -13,15 +13,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button level1 = (Button) findViewById(R.id.button);
+        Button level2 = (Button) findViewById(R.id.button2);
+        Button level3 = (Button) findViewById(R.id.button3);
+
+        level1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, LabyrintheActivity.class);
+                i.putExtra("file", "nivel1.txt");
                 startActivity(i);
                 finish();
             }
         });
+        level2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, LabyrintheActivity.class);
+                i.putExtra("file", "nivel2.txt");
+                startActivity(i);
+                finish();
+            }
+        });
+        level3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, LabyrintheActivity.class);
+                i.putExtra("file", "nivel3.txt");
+                startActivity(i);
+                finish();
+            }
+        });
+
+
 
     }
 }

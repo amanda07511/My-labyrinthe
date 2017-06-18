@@ -7,12 +7,11 @@ import android.graphics.RectF;
  */
 
 public class Bloc {
-
-    public enum  Type { TROU, DEPART, ARRIVEE };
+    enum  Type { TROU, DEPART, ARRIVEE };
 
     private float size = Boule.RAYON * 2;
 
-    public Type mType = null;
+    private Type mType = null;
     private RectF mRectangle = null;
 
     public Type getType() {
@@ -27,6 +26,4 @@ public class Bloc {
         this.mType = pType;
         this.mRectangle = new RectF(pX * size, pY * size, (pX + 1) * size, (pY + 1) * size);
     }
-
-
 }

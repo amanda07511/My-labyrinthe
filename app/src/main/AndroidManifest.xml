@@ -3,8 +3,19 @@
     package="iut.my_labyrinthe">
 
     <uses-feature
-        android:name="android.hardware.sensor.accelerometer"
+    android:name="android.hardware.sensor.accelerometer"
+    android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.light"
         android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.compass"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"

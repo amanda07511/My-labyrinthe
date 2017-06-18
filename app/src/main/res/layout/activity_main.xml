@@ -10,11 +10,47 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="iut.my_labyrinthe.MainActivity">
 
-    <Button
-        android:text="Start"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:paddingBottom="5dp"
+        android:dividerPadding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Nivel"
+            android:gravity="center"
+            android:textSize="30dp"/>
+
+        <Button
+            android:text="Facile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:text="Moyenne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:text="Difficil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button3"
+            android:layout_alignBaseline="@+id/button"
+            android:layout_alignBottom="@+id/button"
+            android:layout_alignStart="@+id/button" />
+
+    </LinearLayout>
+
 </RelativeLayout>

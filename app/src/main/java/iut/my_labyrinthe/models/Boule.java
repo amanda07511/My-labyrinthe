@@ -3,16 +3,16 @@ package iut.my_labyrinthe.models;
 import android.graphics.Color;
 import android.graphics.RectF;
 
+
 /**
  * Created by amanda on 10/04/2017.
  */
 
 public class Boule {
-
-    // Rayon de la Boule
+    // Rayon de la boule
     public static final int RAYON = 20;
 
-    // Couleur de la Boule
+    // Couleur de la boule
     private int mCouleur = Color.GREEN;
     public int getCouleur() {
         return mCouleur;
@@ -21,19 +21,19 @@ public class Boule {
         mCouleur = couleur;
     }
 
-    // Vitesse maximale autorisée pour la Boule
-    private static final float MAX_SPEED = 1.0f;
+    // Vitesse maximale autorisée pour la boule
+    private static final float MAX_SPEED = 2.0f;
 
-    // Permet à la Boule d'accélérer moins vite
-    private static final float COMPENSATEUR = 4.0f;
+    // Permet à la boule d'accélérer moins vite
+    private static final float COMPENSATEUR = 8.0f;
 
     // Utilisé pour compenser les rebonds
     private static final float REBOND = 1.75f;
 
-    // Le rectangle qui correspond à la position de départ de la Boule
+    // Le rectangle qui correspond à la position de départ de la boule
     private RectF mInitialRectangle = null;
 
-    // A partir du rectangle initial on détermine la position de la Boule
+    // A partir du rectangle initial on détermine la position de la boule
     public void setInitialRectangle(RectF pInitialRectangle) {
         this.mInitialRectangle = pInitialRectangle;
         this.mX = pInitialRectangle.left + RAYON;
@@ -51,7 +51,7 @@ public class Boule {
     public void setPosX(float pPosX) {
         mX = pPosX;
 
-        // Si la Boule sort du cadre, on rebondit
+        // Si la boule sort du cadre, on rebondit
         if (mX < RAYON) {
             mX = RAYON;
             // Rebondir, c'est changer la direction de la balle
@@ -109,7 +109,7 @@ public class Boule {
         mRectangle = new RectF();
     }
 
-    // Mettre à jour les coordonnées de la Boule
+    // Mettre à jour les coordonnées de la boule
     public RectF putXAndY(float pX, float pY) {
         mSpeedX += pX / COMPENSATEUR;
         if (mSpeedX > MAX_SPEED) {
@@ -118,7 +118,6 @@ public class Boule {
         if (mSpeedX < -MAX_SPEED) {
             mSpeedX = -MAX_SPEED;
         }
-
 
         mSpeedY += pY / COMPENSATEUR;
         if (mSpeedY > MAX_SPEED) {
@@ -137,12 +136,12 @@ public class Boule {
         return mRectangle;
     }
 
-    // Remet la Boule à sa position de départ
+    // Remet la boule à sa position de départ
     public void reset() {
         mSpeedX = 0;
         mSpeedY = 0;
         this.mX = mInitialRectangle.left + RAYON;
         this.mY = mInitialRectangle.top + RAYON;
     }
-
 }
+
