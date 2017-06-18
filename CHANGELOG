@@ -1,0 +1,46 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+
+
+## [Unreleased]
+### Added
+- CHANGELOG
+- README
+
+## [0.0.6] - 2017-06-18
+### Added
+- Sound effects
+- Differents levels of labyrinthes
+
+## 0.0.4 - 2017-05-15
+### Added
+- Checkstyle Corrector
+### Modified
+- Fixed structural error
+
+## 0.0.3 - 2017-05-15
+### Added
+- New colors added
+### Modified
+- MotoeurPhysique Code to change the color of scenario in fuction of the light.
+- MotoeurPhysique Code to change the color of boule in fuction of magnetisme get of the sensor.
+
+
+## 0.0.2 - 2017-05-15
+### Added
+- Models Bloc, Boule, LabyrintheView, MoteurPhysique
+### Modified
+- Main Activity to show a button for start the game
+
+
+## 0.0.1 - 2017-05-15
+### Added
+- Star of the project 
+
+
+
+[0.0.5]: https://github.com/amanda07511/My-labyrinthe/commit/62620a7b98d3d49521e55677222bc3fca5283f5c
+[0.0.4]: https://github.com/amanda07511/My-labyrinthe/commit/841bb918e5b97ea97fc9995ffa13a1cce74ef2c5
+[0.0.3]: https://github.com/amanda07511/My-labyrinthe/commit/b68d1b0423cd0f8f98f7b4d3bfa99f7601bf6529
+[0.0.2]: https://github.com/amanda07511/My-labyrinthe/commit/59a4b1c405657c20f102084de8a80f5be85bdd7d
+[0.0.1]: https://github.com/amanda07511/My-labyrinthe/commit/121aeb2a7b97803f93af35dcc440cbe592ca7dfc
