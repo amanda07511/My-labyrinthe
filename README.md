@@ -1,4 +1,4 @@
-#My Labyrinthe
+# My Labyrinthe
 
 A little Android app , based on the clasique labyrinth game and on [**OpenClassroom Project**](https://openclassrooms.com/courses/creez-des-applications-pour-android/tp-un-labyrinthe). 
 
