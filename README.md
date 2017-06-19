@@ -3,10 +3,8 @@
 A little Android app , based on the clasique labyrinth game and on [**OpenClassroom Project**](https://openclassrooms.com/courses/creez-des-applications-pour-android/tp-un-labyrinthe). 
 
 ## Screenshots
-<img src="./Screenshots/level1.png" width="336" height="280"/> <img src="./Screenshots/level2.png" width="336" height="280"/> <img src="./Screenshots/level3.png" width="336" height="280"/>
-<p align="center">
-<img src="./Screenshots/GameOver.png" width="336" height="280"/>
-</p>
+<img src="./Screenshots/level1.png" width="336" height="280"/> <img src="./Screenshots/level2.png" width="336" height="280"/> <img src="./Screenshots/level3.png" width="336" height="280"/><img src="./Screenshots/GameOver.png" width="336" height="280"/>
+
 
 ## Functionnality
 
